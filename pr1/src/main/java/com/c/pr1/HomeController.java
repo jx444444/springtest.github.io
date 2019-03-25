@@ -1,8 +1,12 @@
 package com.c.pr1;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +48,29 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/coin", method = RequestMethod.GET)
-	public String coin(Locale locale, Model model) {
-		return "coin";
-	}
-	
+    public String coin(Locale locale, Model model)
+    {
+        return "coinpage";
+    }
+
+	@RequestMapping(value = "/coinresult", method = RequestMethod.GET)
+    public String coinResult(Locale locale, Model model, HttpServletRequest hsr)
+    {
+        List<Coin> coins = new ArrayList();
+        for(int i = 1; hsr.getParameter((new StringBuilder("Pi")).append(i).toString()) != null; i++)
+        {
+            int pi = Integer.parseInt(hsr.getParameter((new StringBuilder("Pi")).append(i).toString()));
+            int n1 = Integer.parseInt(hsr.getParameter((new StringBuilder("Ni")).append(i).toString()));
+            Coin coin = new Coin(pi, n1);
+            coins.add(coin);
+        }
+
+        CoinExchanger coine = new CoinExchanger(Integer.parseInt(hsr.getParameter("T")), coins);
+        List<Coin> resultmessageArray = coine.ExchangeMethod();
+        model.addAttribute("total", resultmessageArray.get(0));
+        model.addAttribute("resultMessage", resultmessageArray.get(1));
+        return "coinResult";
+    }
+
+
 }

@@ -29,6 +29,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(Locale locale, Model model) {
 		return "main";
+		//views의 main.jsp 파일을 표시한다.
 	}
 	
 	
@@ -45,12 +46,14 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+		//views의 home.jsp 파일을 표시한다.
 	}
 	
 	@RequestMapping(value = "/coin", method = RequestMethod.GET)
     public String coin(Locale locale, Model model)
     {
         return "coinpage";
+      //views의 coinpage.jsp 파일을 표시한다.
     }
 
 	@RequestMapping(value = "/coinresult", method = RequestMethod.GET)
@@ -64,12 +67,14 @@ public class HomeController {
             Coin coin = new Coin(pi, n1);
             coins.add(coin);
         }
+        //동적으로 생성된 Pi,Ni들을 다음 번호가 없을 때까지 불러온다.
 
         CoinExchanger coine = new CoinExchanger(Integer.parseInt(hsr.getParameter("T")), coins);
         List<Coin> resultmessageArray = coine.ExchangeMethod();
         model.addAttribute("total", resultmessageArray.get(0));
         model.addAttribute("resultMessage", resultmessageArray.get(1));
         return "coinResult";
+      //views의 coinResult.jsp 파일을 표시한다.
     }
 
 

@@ -108,7 +108,6 @@ public class CoinExchanger
         {
             (temp_coins.get(index)).setNumMinus(1);//제일 끝 동전의 갯수를 하나 줄이며 다음 계산으로 직행.
         }
-        System.out.println(result_message);
         resultList.add(Integer.valueOf(result));
         resultList.add(result_message);
         return resultList;
